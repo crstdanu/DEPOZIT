@@ -1,6 +1,3 @@
-
-from phonenumber_field.modelfields import PhoneNumberField
-from address.models import AddressField
 from django.db import models
 
 
@@ -24,7 +21,7 @@ class Contact(models.Model):
         verbose_name_plural = 'Contacte'
 
     nume = models.CharField(max_length=50)
-    nr_telefon = PhoneNumberField(null=True, default=None)
+    nr_telefon = models.CharField(max_length=13)
     email = models.EmailField()
 
     def __str__(self):
@@ -48,6 +45,7 @@ class FacturaAchizitie(models.Model):
 
     furnizor = models.ForeignKey(ContactFurnizor, on_delete=models.CASCADE)
     nr_factura = models.BigIntegerField()  # trebuie sa fiu mai specific aici?
+    valoare_factura = models.FloatField(default=0.00)
 
 
 class Produs(models.Model):

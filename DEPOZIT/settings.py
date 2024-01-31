@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'Gestiune',
     'phonenumber_field',
-    'address',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
