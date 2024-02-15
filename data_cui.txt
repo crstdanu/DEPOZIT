@@ -1,0 +1,21 @@
+{
+    'accize': None, 
+    'act_autorizare': None, 
+    'adresa': 'Str. Putu Cu Apa Rece, 9, -, Ploiesti', 
+    'cif': '15412450', 
+    'cod_postal': '100425', 
+    'denumire': 'Cif S.R.L.', 
+    'fax': '575236', 
+    'impozit_micro': None, 
+    'impozit_profit': '2010-01-01', 
+    'judet': 'Prahova', 
+    'meta': {'last_changed_at': '2021-10-11T20:27:18.021670Z', 'updated_at': '2024-01-21T13:36:40.184938Z'}, 
+    'numar_reg_com': 'J29/770/2003', 
+    'radiata': False, 
+    'stare': 'INREGISTRAT din data 07 Mai 2003', 
+    'telefon': '0724591850', 
+    'tva': '2003-05-01', 
+    'tva_la_incasare': [{'actualizare': '2012-12-27', 'de_la': '2013-01-01', 'pana_la': None, 'publicare': '2012-12-28', 'tip': 'I', 'tip_descriere': 'inregistrare'}, {'actualizare': '2014-02-26', 'de_la': '2013-01-01', 'pana_la': '2014-03-01', 'publicare': '2014-02-27', 'tip': 'D', 'tip_descriere': 'radiere'}], 
+    'ultima_declaratie': '2010-01-28', 
+    'ultima_prelucrare': '2018-01-02'
+    }
