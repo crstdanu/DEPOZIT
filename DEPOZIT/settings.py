@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'Gestiune',
-    'phonenumber_field',
+
 
     'django.contrib.admin',
     'django.contrib.auth',
