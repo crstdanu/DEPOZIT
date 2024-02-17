@@ -15,18 +15,19 @@ from .models import (
 
 from .forms import FurnizorForm
 
-# from .serializers import (
-#     FurnizorSerializer,
-#     ContactSerializer,
-#     ContactFurnizorSerializer,
-#     FacturaAchizitieSerializer,
-#     ProdusSerializer,
-#     ReceptieMarfaSerializer,
-#     ProduseReceptionateSerializer,
-# )
+from .serializers import (
+    FurnizorSerializer,
+    ContactSerializer,
+    ContactFurnizorSerializer,
+    FacturaAchizitieSerializer,
+    ProdusSerializer,
+    ReceptieMarfaSerializer,
+    ProduseReceptionateSerializer,
+)
 
 # Create your views here.
-
+def index(request):
+    return render(request, 'Gestiune/index.html')
 
 def index_furnizor(request):
     return render(request, 'Gestiune/furnizor/index.html', {'furnizori': Furnizor.objects.all()})
@@ -89,92 +90,93 @@ def sterge_furnizor(request, id):
         furnizor.delete()
     return HttpResponseRedirect(reverse('index_furnizor'))
 
+
 # def vezi_furnizor(request, id):
 #     return HttpResponseRedirect(reverse('index'))
 
 
-# class FurnizorListCreateAPIView(ListCreateAPIView):
-#     queryset = Furnizor.objects.all()
-#     serializer_class = FurnizorSerializer
+class FurnizorListCreateAPIView(ListCreateAPIView):
+    queryset = Furnizor.objects.all()
+    serializer_class = FurnizorSerializer
 
 
-# class FurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = Furnizor.objects.all()
-#     serializer_class = FurnizorSerializer
-#     lookup_field = 'id'
+class FurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Furnizor.objects.all()
+    serializer_class = FurnizorSerializer
+    lookup_field = 'id'
 
 
-# #
-# class ContactListCreateAPIView(ListCreateAPIView):
-#     queryset = Contact.objects.all()
-#     serializer_class = ContactSerializer
+#
+class ContactListCreateAPIView(ListCreateAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
 
 
-# class ContactRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = Contact.objects.all()
-#     serializer_class = ContactSerializer
-#     lookup_field = 'id'
+class ContactRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Contact.objects.all()
+    serializer_class = ContactSerializer
+    lookup_field = 'id'
 
-# #
-
-
-# class ContactFurnizorListCreateAPIView(ListCreateAPIView):
-#     queryset = ContactFurnizor.objects.all()
-#     serializer_class = ContactFurnizorSerializer
+#
 
 
-# class ContactFurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = ContactFurnizor.objects.all()
-#     serializer_class = ContactFurnizorSerializer
-#     lookup_field = 'id'
-
-# #
+class ContactFurnizorListCreateAPIView(ListCreateAPIView):
+    queryset = ContactFurnizor.objects.all()
+    serializer_class = ContactFurnizorSerializer
 
 
-# class FacturaAchizitieListCreateAPIView(ListCreateAPIView):
-#     queryset = FacturaAchizitie.objects.all()
-#     serializer_class = FacturaAchizitieSerializer
+class ContactFurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = ContactFurnizor.objects.all()
+    serializer_class = ContactFurnizorSerializer
+    lookup_field = 'id'
+
+#
 
 
-# class FacturaAchizitieRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = FacturaAchizitie.objects.all()
-#     serializer_class = FacturaAchizitieSerializer
-#     lookup_field = 'id'
-
-# #
+class FacturaAchizitieListCreateAPIView(ListCreateAPIView):
+    queryset = FacturaAchizitie.objects.all()
+    serializer_class = FacturaAchizitieSerializer
 
 
-# class ProdusListCreateAPIView(ListCreateAPIView):
-#     queryset = Produs.objects.all()
-#     serializer_class = ProdusSerializer
+class FacturaAchizitieRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = FacturaAchizitie.objects.all()
+    serializer_class = FacturaAchizitieSerializer
+    lookup_field = 'id'
+
+#
 
 
-# class ProdusRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = Produs.objects.all()
-#     serializer_class = ProdusSerializer
-#     lookup_field = 'id'
+class ProdusListCreateAPIView(ListCreateAPIView):
+    queryset = Produs.objects.all()
+    serializer_class = ProdusSerializer
 
 
-# #
-# class ReceptieMarfaListCreateAPIView(ListCreateAPIView):
-#     queryset = ReceptieMarfa.objects.all()
-#     serializer_class = ReceptieMarfaSerializer
+class ProdusRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = Produs.objects.all()
+    serializer_class = ProdusSerializer
+    lookup_field = 'id'
 
 
-# class ReceptieMarfaRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = ReceptieMarfa.objects.all()
-#     serializer_class = ReceptieMarfaSerializer
-#     lookup_field = 'id'
-
-# #
+#
+class ReceptieMarfaListCreateAPIView(ListCreateAPIView):
+    queryset = ReceptieMarfa.objects.all()
+    serializer_class = ReceptieMarfaSerializer
 
 
-# class ProduseReceptionateListCreateAPIView(ListCreateAPIView):
-#     queryset = ProduseReceptionate.objects.all()
-#     serializer_class = ProduseReceptionateSerializer
+class ReceptieMarfaRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = ReceptieMarfa.objects.all()
+    serializer_class = ReceptieMarfaSerializer
+    lookup_field = 'id'
+
+#
 
 
-# class ProduseReceptionateRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
-#     queryset = ProduseReceptionate.objects.all()
-#     serializer_class = ProduseReceptionateSerializer
-#     lookup_field = 'id'
+class ProduseReceptionateListCreateAPIView(ListCreateAPIView):
+    queryset = ProduseReceptionate.objects.all()
+    serializer_class = ProduseReceptionateSerializer
+
+
+class ProduseReceptionateRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    queryset = ProduseReceptionate.objects.all()
+    serializer_class = ProduseReceptionateSerializer
+    lookup_field = 'id'
