@@ -33,7 +33,7 @@ def index(request):
 
 
 def index_furnizor(request):
-    return render(request, 'Gestiune/furnizor/index.html', {'furnizori': Furnizor.objects.all()})
+    return render(request, 'Gestiune/furnizori/index.html', {'furnizori': Furnizor.objects.all()})
 
 
 def vezi_furnizor(request, id):
@@ -58,13 +58,13 @@ def adauga_furnizor(request):
                 telefon=new_telefon,
             )
             new_furnizor.save()
-            return render(request, 'Gestiune/furnizor/adauga.html', {
+            return render(request, 'Gestiune/furnizori/adauga.html', {
                 'form': FurnizorForm(),
                 'success': True
             })
     else:
         form = FurnizorForm()
-    return render(request, 'Gestiune/furnizor/adauga.html', {
+    return render(request, 'Gestiune/furnizori/adauga.html', {
         'form': FurnizorForm()
     })
 
@@ -75,14 +75,14 @@ def editeaza_furnizor(request, id):
         form = FurnizorForm(request.POST, instance=furnizor)
         if form.is_valid():
             form.save()
-            return render(request, 'Gestiune/furnizor/editeaza.html', {
+            return render(request, 'Gestiune/furnizori/editeaza.html', {
                 'form': form,
                 'success': True
             })
     else:
         student = Furnizor.objects.get(pk=id)
         form = FurnizorForm(instance=student)
-    return render(request, 'Gestiune/furnizor/editeaza.html', {
+    return render(request, 'Gestiune/furnizori/editeaza.html', {
         'form': form
     })
 
