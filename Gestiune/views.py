@@ -26,8 +26,11 @@ from .serializers import (
 )
 
 # Create your views here.
+
+
 def index(request):
     return render(request, 'Gestiune/index.html')
+
 
 def index_furnizor(request):
     return render(request, 'Gestiune/furnizor/index.html', {'furnizori': Furnizor.objects.all()})
