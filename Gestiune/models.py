@@ -56,7 +56,7 @@ class ContactFurnizor(models.Model):
     persoana_de_contact = models.CharField(max_length=255)
 
     def __str__(self):
-        return f'Firma: {self.furnizor}, contact: {self.persoana_de_contact}'
+        return f'Firma: {self.furnizor}'
 
 
 class FacturaAchizitie(models.Model):
@@ -65,7 +65,7 @@ class FacturaAchizitie(models.Model):
 
     furnizor = models.ForeignKey(ContactFurnizor, on_delete=models.CASCADE)
     nr_factura = models.BigIntegerField()  # trebuie sa fiu mai specific aici?
-    valoare_factura = models.CharField(max_length=15)
+    valoare_factura = models.DecimalField(max_digits=10, decimal_places=2)
     data_factura = models.DateTimeField(auto_now_add=True)
 
 
@@ -102,4 +102,4 @@ class ProduseReceptionate(models.Model):
 
     receptie_marfa = models.CharField(max_length=2550)
     produs = models.ForeignKey(Produs, on_delete=models.CASCADE)
-    cantitate = models.IntegerField()
+    cantitate = models.PositiveIntegerField()
