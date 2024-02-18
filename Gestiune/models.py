@@ -1,5 +1,7 @@
-import requests
+
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Furnizor(models.Model):
@@ -63,8 +65,8 @@ class FacturaAchizitie(models.Model):
     class Meta:
         verbose_name_plural = 'Facturi Achizitie'
 
-    furnizor = models.ForeignKey(ContactFurnizor, on_delete=models.CASCADE)
-    nr_factura = models.BigIntegerField()  # trebuie sa fiu mai specific aici?
+    furnizor = models.ForeignKey(Furnizor, on_delete=models.CASCADE)
+    nr_factura = models.BigIntegerField()
     valoare_factura = models.DecimalField(max_digits=10, decimal_places=2)
     data_factura = models.DateTimeField(auto_now_add=True)
 
@@ -103,3 +105,12 @@ class ProduseReceptionate(models.Model):
     receptie_marfa = models.CharField(max_length=2550)
     produs = models.ForeignKey(Produs, on_delete=models.CASCADE)
     cantitate = models.PositiveIntegerField()
+
+
+@receiver(post_save, sender=ProduseReceptionate)
+def update_cantitate_in_stoc(sender, instance, created, **kwargs):
+    if created:  # Check if a new instance of ProduseReceptionate is created
+        produs = instance.produs  # Get the associated Produs instance
+        # Update 'cantitate_in_stoc' by adding the value of 'cantitate' from ProduseReceptionate
+        produs.cantitate_in_stoc += instance.cantitate
+        produs.save()  # Save the Produs instance with the updated 'cantitate_in_stoc'
