@@ -3,6 +3,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
 from .models import (
     Furnizor,
     Contact,
@@ -101,6 +104,9 @@ def sterge_furnizor(request, id):
 class FurnizorListCreateAPIView(ListCreateAPIView):
     queryset = Furnizor.objects.all()
     serializer_class = FurnizorSerializer
+    # filter_backends = [filters.OrderingFilter]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['cui', 'nume', 'adresa', 'numar_reg_com', 'telefon']
 
 
 class FurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
