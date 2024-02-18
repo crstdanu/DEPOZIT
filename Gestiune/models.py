@@ -12,25 +12,25 @@ class Furnizor(models.Model):
     numar_reg_com = models.CharField(max_length=15, default='')
     telefon = models.CharField(max_length=15, default='')
 
-    def populeaza_din_api(self):
-        URL = f'https://api.openapi.ro/api/companies/{self.cui}'
-        API_KEY = 'x9TYCaNAfuj-it3sami_hi82J8qEh3NyPVsqmLoE5pCBsaj3Mw'
-        headers = {'x-api-key': API_KEY}
-        try:
-            response = requests.get(URL, headers=headers, timeout=10)
-            data = response.json()
-            self.nume = data.get('denumire')
-            self.adresa = data.get('adresa')
-            self.numar_reg_com = data.get('numar_reg_com')
-            self.telefon = data.get('telefon')
-            self.save()
-        except Exception as e:
-            print(f"S-a intamplat o eroare: {e}")
+    # def populeaza_din_api(self):
+    #     URL = f'https://api.openapi.ro/api/companies/{self.cui}'
+    #     API_KEY = 'x9TYCaNAfuj-it3sami_hi82J8qEh3NyPVsqmLoE5pCBsaj3Mw'
+    #     headers = {'x-api-key': API_KEY}
+    #     try:
+    #         response = requests.get(URL, headers=headers, timeout=10)
+    #         data = response.json()
+    #         self.nume = data.get('denumire')
+    #         self.adresa = data.get('adresa')
+    #         self.numar_reg_com = data.get('numar_reg_com')
+    #         self.telefon = data.get('telefon')
+    #         self.save()
+    #     except Exception as e:
+    #         print(f"S-a intamplat o eroare: {e}")
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        if not self.pk:
-            self.populeaza_din_api()
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     if not self.pk:
+    #         self.populeaza_din_api()
 
     def __str__(self):
         return f'{self.nume}'
