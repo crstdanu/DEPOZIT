@@ -79,7 +79,7 @@ class ProduseReceptionateAdmin(admin.ModelAdmin):
     fields = ('receptie_marfa', ('produs', 'cantitate'),)
     list_display = ['receptie_marfa', 'produs', 'cantitate']
     list_filter = ['produs', 'cantitate']
-    search_fields = ['receptie_marfa', 'produs', 'cantitate']
+    search_fields = ['receptie_marfa', 'produs__nume_produs', 'cantitate']
 
 
 admin.site.register(ProduseReceptionate, ProduseReceptionateAdmin)

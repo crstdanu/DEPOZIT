@@ -105,8 +105,8 @@ class FurnizorListCreateAPIView(ListCreateAPIView):
     queryset = Furnizor.objects.all()
     serializer_class = FurnizorSerializer
     # filter_backends = [filters.OrderingFilter]
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['cui', 'nume', 'adresa', 'numar_reg_com', 'telefon']
+    # filter_backends = [filters.SearchFilter]
+    filterset_fields = ['cui', 'nume', 'adresa', 'numar_reg_com', 'telefon']
 
 
 class FurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
