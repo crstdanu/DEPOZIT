@@ -1,0 +1,1 @@
+I used Django and Rest frameworks to create a web application. I used CRUD operations to manage data - adding, viewing, editing, and deleting. For the design, I used HTML and Bootstrap CSS to make the site look good.
