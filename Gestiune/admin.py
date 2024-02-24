@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 
-admin.site.site_header = 'Sistem de management al inventarului'
+admin.site.site_header = 'Sistem de gestiune a stocurilor'
 admin.site.index_title = 'Panou de bord'
 
 
