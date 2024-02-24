@@ -16,7 +16,7 @@ from .models import (
     ProduseReceptionate,
 )
 
-from .forms import FurnizorForm, ContactForm
+from .forms import FurnizorForm, ContactForm, ContactFurnizorForm
 
 from .serializers import (
     FurnizorSerializer,
@@ -34,6 +34,8 @@ from .serializers import (
 def index(request):
     return render(request, 'Gestiune/index.html')
 
+
+# clasa Furnizor
 
 def index_furnizor(request):
     return render(request, 'Gestiune/furnizori/index.html', {'furnizori': Furnizor.objects.all()})
@@ -97,6 +99,9 @@ def sterge_furnizor(request, id):
     return HttpResponseRedirect(reverse('index_furnizori'))
 
 
+# Clasa Contact
+
+
 def index_contacte(request):
     return render(request, 'Gestiune/contacte/index.html', {'contacte': Contact.objects.all()})
 
@@ -113,14 +118,14 @@ def adauga_contact(request):
             new_nr_telefon = form.cleaned_data['nr_telefon']
             new_email = form.cleaned_data['email']
 
-            new_contact = Furnizor(
+            new_contact = Contact(
                 nume=new_nume,
                 nr_telefon=new_nr_telefon,
                 email=new_email,
             )
             new_contact.save()
             return render(request, 'Gestiune/contacte/adauga.html', {
-                'form': FurnizorForm(),
+                'form': ContactForm(),
                 'success': True
             })
     else:
@@ -155,12 +160,79 @@ def sterge_contact(request, id):
     return HttpResponseRedirect(reverse('index_contacte'))
 
 
+
+
+
+
+# Clasa ContactFurnizori
+
+
+def index_contacte_furnizori(request):
+    return render(request, 'Gestiune/contacte_furnizori/index.html', {'contacte_furnizori': ContactFurnizor.objects.all()})
+
+
+def vezi_contact_furnizor(request, id):
+    return HttpResponseRedirect(reverse('index_contacte_furnizor'))
+
+
+def adauga_contact_furnizor(request):
+    if request.method == 'POST':
+        form = ContactFurnizorForm(request.POST)
+        if form.is_valid():
+            new_furnizor = form.cleaned_data['furnizor']
+            new_persoana_de_contact = form.cleaned_data['persoana_de_contact']
+
+            new_contact_furnizor = ContactFurnizor(
+                furnizor=new_furnizor,
+                persoana_de_contact=new_persoana_de_contact,
+            )
+            new_contact_furnizor.save()
+            return render(request, 'Gestiune/contacte_furnizori/adauga.html', {
+                'form': ContactFurnizorForm(),
+                'success': True
+            })
+    else:
+        form = ContactFurnizorForm()
+    return render(request, 'Gestiune/contacte_furnizori/adauga.html', {
+        'form': ContactFurnizorForm()
+    })
+
+
+def editeaza_contact_furnizor(request, id):
+    if request.method == 'POST':
+        contact_furnizor = ContactFurnizor.objects.get(pk=id)
+        form = ContactFurnizorForm(request.POST, instance=contact_furnizor)
+        if form.is_valid():
+            form.save()
+            return render(request, 'Gestiune/contacte_furnizori/editeaza.html', {
+                'form': form,
+                'success': True
+            })
+    else:
+        contact_furnizor = ContactFurnizor.objects.get(pk=id)
+        form = ContactFurnizorForm(instance=contact_furnizor)
+    return render(request, 'Gestiune/contacte_furnizori/editeaza.html', {
+        'form': form
+    })
+
+
+def sterge_contact_furnizor(request, id):
+    if request.method == 'POST':
+        contact_furnizor = ContactFurnizor.objects.get(pk=id)
+        contact_furnizor.delete()
+    return HttpResponseRedirect(reverse('index_contacte_furnizori'))
+
+
+
+# REST API
+
 class FurnizorListCreateAPIView(ListCreateAPIView):
     queryset = Furnizor.objects.all()
     serializer_class = FurnizorSerializer
     # filter_backends = [filters.OrderingFilter]
     # filter_backends = [filters.SearchFilter]
     filterset_fields = ['cui', 'nume', 'adresa', 'numar_reg_com', 'telefon']
+
 
 
 class FurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):

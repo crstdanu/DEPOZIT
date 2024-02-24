@@ -1,16 +1,16 @@
 {% extends "Gestiune/base.html" %}
 
 {% block body %}
-<h3 class="m-4">Toți Furnizorii</h3>
+<h3 class="m-4">Toate contactele furnizori</h3>
 <div class="row">
     <div class="col-12">
-        {% if furnizori %}
+        {% if contacte_furnizori %}
         <div class="card bg-light ms-4 me-4 mb-4">
             <div class="card-header">
-                <a class="nav-link" href="{% url 'adauga_furnizor' %}">
-                    <i class="fa-solid fa-plus fa-lg"></i> Adaugă furnizor
+                <a class="nav-link" href="{% url 'adauga_contact_furnizor' %}">
+                    <i class="fa-solid fa-plus fa-lg"></i> Adaugă contact furnizori
                 </a>
-                <!-- <i class="fa-solid fa-list fa-lg"></i> Adauga furnizori -->
+
             </div>
             <div class="card-body">
                 <p class="card-text">
@@ -18,37 +18,31 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">CUI</th>
-                                <th scope="col">Nume</th>
-                                <th scope="col">Adresa</th>
-                                <th scope="col">Nr. Reg. Com</th>
-                                <th scope="col">Telefon</th>
-                                <th scope="col">Actiuni</th>
+                                <th scope="col">Furnizor</th>
+                                <th scope="col">Persoană de contact</th>
+                                <th scope="col">Acțiuni</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for furnizor in furnizori %}
+                            {% for contact_furnizor in contacte_furnizori %}
                             <tr>
-                                <td>{{ furnizor.cui }}</td>
-                                <td>{{ furnizor.nume }}</td>
-                                <td>{{ furnizor.adresa }}</td>
-                                <td>{{ furnizor.numar_reg_com }}</td>
-                                <td>{{ furnizor.telefon }}</td>
+                                <td>{{ contact_furnizor.furnizor }}</td>
+                                <td>{{ contact_furnizor.persoana_de_contact }}</td>
                                 <td>
                                     <button type="button" class="btn btn-success me-1"
-                                        href="{% url 'vezi_furnizor' furnizor.id %}" data-bs-toggle="modal"
-                                        data-bs-target="#myModal{{furnizor.id}}">
+                                        href="{% url 'vezi_contact_furnizor' contact_furnizor.id %}"
+                                        data-bs-toggle="modal" data-bs-target="#myModal{{contact_furnizor.id}}">
                                         <i class="fa-solid fa-circle-info fa-lg"></i>
                                     </button>
 
-                                    <!-- Modal - View Student -->
-                                    <div class="modal" id="myModal{{furnizor.id}}" tabindex="-1"
+                                    <!-- Modal - View ContactFurnizor -->
+                                    <div class="modal" id="myModal{{contact_furnizor.id}}" tabindex="-1"
                                         aria-labelledby="myModalLabel1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">
-                                                        Furnizor: {{ furnizor.nume }}
+                                                        Contact Furnizor: {{ contact_furnizor.furnizor }}
                                                     </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close">
@@ -57,12 +51,8 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul class="list-unstyled">
-                                                        <li>CUI: <strong>
-                                                                {{ furnizor.cui }}</strong></li>
-                                                        <li>Adresa: <strong>{{ furnizor.adresa }}</strong></li>
-                                                        <li>Nr. Reg. Com: <strong>{{ furnizor.numar_reg_com }}</strong>
-                                                        </li>
-                                                        <li>Telefon: <strong>{{ furnizor.telefon }}</strong></li>
+                                                        <li>Nume contact: <strong>
+                                                                {{ contact_furnizor.persoana_de_contact }}</strong></li>
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -73,23 +63,24 @@
                                         </div>
                                     </div>
 
-                                    <a class="btn btn-warning me-1" href="{% url 'editeaza_furnizor' furnizor.id %}">
+                                    <a class="btn btn-warning me-1"
+                                        href="{% url 'editeaza_contact_furnizor' contact_furnizor.id %}">
                                         <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                     </a>
 
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delete{{furnizor.id}}">
+                                        data-bs-target="#delete{{contact_furnizor.id}}">
                                         <i class="fa-solid fa-trash-can fa-lg"></i>
                                     </button>
 
-                                    <!-- Modal - Delete Student -->
-                                    <div class="modal" id="delete{{furnizor.id}}" tabindex="-1"
+                                    <!-- Modal - Delete ContactFurnizor -->
+                                    <div class="modal" id="delete{{contact_furnizor.id}}" tabindex="-1"
                                         aria-labelledby="myModalLabel2" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">
-                                                        Furnizor: {{ furnizor.nume }}
+                                                        Contact furnizor: {{ contact_furnizor.furnizor }}
                                                     </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close">
@@ -97,10 +88,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Ești sigur că vrei să ștergi furnizorul?</p>
+                                                    <p>Ești sigur că vrei să ștergi contactul furnizorului?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{% url 'sterge_furnizor' furnizor.id %}"
+                                                    <form
+                                                        action="{% url 'sterge_contact_furnizor' contact_furnizor.id %}"
                                                         method="POST">
                                                         {% csrf_token %}
                                                         <input type="submit" class="btn btn-primary" value="Delete">

@@ -5,7 +5,7 @@
 {% if success %}
 <div class="alert alert-success" role="alert">
     Furnizorul a fost actualizat cu succes.
-    <a href="{% url 'index_furnizor' %}" class="alert-link">Mergi la pagina principală.</a>
+    <a href="{% url 'index_contacte_furnizori' %}" class="alert-link">Mergi la pagina principală.</a>
 </div>
 {% else %}
 <div class="row justify-content-center">
@@ -19,7 +19,7 @@
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary">Actualizează</button>
-                    <a href="{% url 'index_furnizor' %}" class="btn btn-secondary">Anulează</a>
+                    <a href="{% url 'index_contacte_furnizori' %}" class="btn btn-secondary">Anulează</a>
                 </form>
             </div>
         </div>

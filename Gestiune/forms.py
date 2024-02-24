@@ -1,5 +1,5 @@
 from django import forms
-from .models import Furnizor, Contact
+from .models import Furnizor, Contact, ContactFurnizor
 
 
 class FurnizorForm(forms.ModelForm):
@@ -35,4 +35,36 @@ class ContactForm(forms.ModelForm):
             'nume': forms.TextInput(attrs={'class': 'form-control'}),
             'nr_telefon': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+# class ContactFurnizorForm(forms.ModelForm):
+#     class Meta:
+#         model = ContactFurnizor
+#         fields = ['furnizor', 'persoana_de_contact']
+#         labels = {
+#             'furnizor': 'Furnizor',
+#             'persoana_de_contact': 'Persoana de contact'
+#         }
+#         widgets = {
+#             'furnizor': forms.TextInput(attrs={'class': 'form-control'}),
+#             'persoana_de_contact': forms.TextInput(attrs={'class': 'form-control'})
+#         }
+
+
+class ContactFurnizorForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ContactFurnizorForm, self).__init__(*args, **kwargs)
+        self.fields['furnizor'].queryset = Furnizor.objects.all()
+
+    class Meta:
+        model = ContactFurnizor
+        fields = ['furnizor', 'persoana_de_contact']
+        labels = {
+            'furnizor': 'Furnizor',
+            'persoana_de_contact': 'Persoana de contact'
+        }
+        widgets = {
+            'furnizor': forms.Select(attrs={'class': 'form-control'}),
+            'persoana_de_contact': forms.TextInput(attrs={'class': 'form-control'})
         }

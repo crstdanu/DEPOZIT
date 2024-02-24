@@ -23,6 +23,9 @@ from .views import (
 urlpatterns = [
     path('', views.index, name='index'),
 
+
+    # clasa Furnizori
+
     path('furnizori', views.index_furnizor, name='index_furnizori'),
     path('furnizori/<int:id>', views.vezi_furnizor, name='vezi_furnizor'),
     path('furnizori/adauga/', views.adauga_furnizor, name='adauga_furnizor'),
@@ -32,6 +35,7 @@ urlpatterns = [
          views.sterge_furnizor, name='sterge_furnizor'),
 
 
+    # clasa Contact
 
     path('contacte', views.index_contacte, name='index_contacte'),
     path('contacte/<int:id>', views.vezi_contact, name='vezi_contact'),
@@ -42,6 +46,21 @@ urlpatterns = [
          views.sterge_contact, name='sterge_contact'),
 
 
+    # clasa ContactFurnizor
+
+    path('contacte_furnizori', views.index_contacte_furnizori,
+         name='index_contacte_furnizori'),
+    path('contacte_furnizori/<int:id>',
+         views.vezi_contact_furnizor, name='vezi_contact_furnizor'),
+    path('contacte_furnizori/adauga/', views.adauga_contact_furnizor,
+         name='adauga_contact_furnizor'),
+    path('contacte_furnizori/editeaza/<int:id>',
+         views.editeaza_contact_furnizor, name='editeaza_contact_furnizor'),
+    path('contacte_furnizori/sterge/<int:id>',
+         views.sterge_contact_furnizor, name='sterge_contact_furnizor'),
+
+
+    # REST API
 
     path('drf/furnizori/', FurnizorListCreateAPIView.as_view(), name='furnizor'),
     path('drf/furnizor/<int:id>/',
