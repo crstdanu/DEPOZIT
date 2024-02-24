@@ -1,14 +1,14 @@
 {% extends "Gestiune/base.html" %}
 
 {% block body %}
-<h3 class="m-4">Toți Furnizorii</h3>
+<h3 class="m-4">Toate contactele</h3>
 <div class="row">
     <div class="col-12">
-        {% if furnizori %}
+        {% if contacte %}
         <div class="card bg-light ms-4 me-4 mb-4">
             <div class="card-header">
-                <a class="nav-link" href="{% url 'adauga_furnizor' %}">
-                    <i class="fa-solid fa-plus fa-lg"></i> Adaugă furnizor
+                <a class="nav-link" href="{% url 'adauga_contact' %}">
+                    <i class="fa-solid fa-plus fa-lg"></i> Adaugă contact
                 </a>
                 <!-- <i class="fa-solid fa-list fa-lg"></i> Adauga furnizori -->
             </div>
@@ -18,37 +18,33 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">CUI</th>
                                 <th scope="col">Nume</th>
-                                <th scope="col">Adresa</th>
-                                <th scope="col">Nr. Reg. Com</th>
-                                <th scope="col">Telefon</th>
+                                <th scope="col">Nr. Telefon</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Actiuni</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for furnizor in furnizori %}
+                            {% for contact in contacte %}
                             <tr>
-                                <td>{{ furnizor.cui }}</td>
-                                <td>{{ furnizor.nume }}</td>
-                                <td>{{ furnizor.adresa }}</td>
-                                <td>{{ furnizor.numar_reg_com }}</td>
-                                <td>{{ furnizor.telefon }}</td>
+                                <td>{{ contact.nume }}</td>
+                                <td>{{ contact.nr_telefon }}</td>
+                                <td>{{ contact.email }}</td>
                                 <td>
                                     <button type="button" class="btn btn-success me-1"
-                                        href="{% url 'vezi_furnizor' furnizor.id %}" data-bs-toggle="modal"
-                                        data-bs-target="#myModal{{furnizor.id}}">
+                                        href="{% url 'vezi_contact' contact.id %}" data-bs-toggle="modal"
+                                        data-bs-target="#myModal{{contact.id}}">
                                         <i class="fa-solid fa-circle-info fa-lg"></i>
                                     </button>
 
                                     <!-- Modal - View Student -->
-                                    <div class="modal" id="myModal{{furnizor.id}}" tabindex="-1"
+                                    <div class="modal" id="myModal{{contact.id}}" tabindex="-1"
                                         aria-labelledby="myModalLabel1" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">
-                                                        Furnizor: {{ furnizor.nume }}
+                                                        Contact: {{ contact.nume }}
                                                     </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close">
@@ -57,12 +53,9 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <ul class="list-unstyled">
-                                                        <li>CUI: <strong>
-                                                                {{ furnizor.cui }}</strong></li>
-                                                        <li>Adresa: <strong>{{ furnizor.adresa }}</strong></li>
-                                                        <li>Nr. Reg. Com: <strong>{{ furnizor.numar_reg_com }}</strong>
-                                                        </li>
-                                                        <li>Telefon: <strong>{{ furnizor.telefon }}</strong></li>
+                                                        <li>Telefon: <strong>
+                                                                {{ contact.nr_telefon }}</strong></li>
+                                                        <li>Email: <strong>{{ contact.email }}</strong></li>
                                                     </ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -73,23 +66,23 @@
                                         </div>
                                     </div>
 
-                                    <a class="btn btn-warning me-1" href="{% url 'editeaza_furnizor' furnizor.id %}">
+                                    <a class="btn btn-warning me-1" href="{% url 'editeaza_contact' contact.id %}">
                                         <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                     </a>
 
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delete{{furnizor.id}}">
+                                        data-bs-target="#delete{{contact.id}}">
                                         <i class="fa-solid fa-trash-can fa-lg"></i>
                                     </button>
 
                                     <!-- Modal - Delete Student -->
-                                    <div class="modal" id="delete{{furnizor.id}}" tabindex="-1"
+                                    <div class="modal" id="delete{{contact.id}}" tabindex="-1"
                                         aria-labelledby="myModalLabel2" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">
-                                                        Furnizor: {{ furnizor.nume }}
+                                                        Contact: {{ contact.nume }}
                                                     </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close">
@@ -97,11 +90,10 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Ești sigur că vrei să ștergi furnizorul?</p>
+                                                    <p>Ești sigur că vrei să ștergi contactul?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{% url 'sterge_furnizor' furnizor.id %}"
-                                                        method="POST">
+                                                    <form action="{% url 'sterge_contact' contact.id %}" method="POST">
                                                         {% csrf_token %}
                                                         <input type="submit" class="btn btn-primary" value="Delete">
                                                     </form>

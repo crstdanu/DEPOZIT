@@ -23,13 +23,23 @@ from .views import (
 urlpatterns = [
     path('', views.index, name='index'),
 
-    path('furnizori', views.index_furnizor, name='index_furnizor'),
+    path('furnizori', views.index_furnizor, name='index_furnizori'),
     path('furnizori/<int:id>', views.vezi_furnizor, name='vezi_furnizor'),
     path('furnizori/adauga/', views.adauga_furnizor, name='adauga_furnizor'),
     path('furnizori/editeaza/<int:id>',
          views.editeaza_furnizor, name='editeaza_furnizor'),
     path('furnizori/sterge/<int:id>',
          views.sterge_furnizor, name='sterge_furnizor'),
+
+
+
+    path('contacte', views.index_contacte, name='index_contacte'),
+    path('contacte/<int:id>', views.vezi_contact, name='vezi_contact'),
+    path('contacte/adauga/', views.adauga_contact, name='adauga_contact'),
+    path('contacte/editeaza/<int:id>',
+         views.editeaza_contact, name='editeaza_contact'),
+    path('contacte/sterge/<int:id>',
+         views.sterge_contact, name='sterge_contact'),
 
 
 

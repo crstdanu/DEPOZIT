@@ -1,25 +1,25 @@
 {% extends "Gestiune/base.html" %}
 
 {% block body %}
-<h3 class="text-center m-4">Adaugă furnizor</h3>
+<h3 class="text-center m-4">Adaugă contact</h3>
 {% if success %}
 <div class="alert alert-success" role="alert">
-    Noul furnizor a fost adăugat cu succes.
-    <a href="{% url 'index_furnizori' %}" class="alert-link">Mergi la furnizori</a>
+    Noul contact a fost adăugat cu succes.
+    <a href="{% url 'index_contacte' %}" class="alert-link">Mergi la Contacte</a>
 </div>
 {% else %}
 <div class="row justify-content-center">
     <div class="col-6">
         <div class="card bg-light mb-3">
             <div class="card-header">
-                <i class="fa-solid fa-address-card fa-lg"></i> Înregistrare furnizor
+                <i class="fa-solid fa-address-card fa-lg"></i> Înregistrare contact nou
             </div>
             <div class="card-body">
-                <form action="{% url 'adauga_furnizori' %}" method="POST">
+                <form action="{% url 'adauga_contact' %}" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary">Adaugă</button>
-                    <a href="{% url 'index_furnizori' %}" class="btn btn-secondary">Anulează</a>
+                    <a href="{% url 'index_contacte' %}" class="btn btn-secondary">Anulează</a>
                 </form>
             </div>
         </div>
