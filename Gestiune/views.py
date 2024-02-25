@@ -16,7 +16,7 @@ from .models import (
     ProduseReceptionate,
 )
 
-from .forms import FurnizorForm, ContactForm, ContactFurnizorForm, FacturaAchizitieForm
+from .forms import FurnizorForm, ContactForm, ContactFurnizorForm, FacturaAchizitieForm, ProdusForm, ReceptieMarfaForm, ProduseReceptionateForm
 
 from .serializers import (
     FurnizorSerializer,
@@ -280,6 +280,193 @@ def sterge_factura_achizitie(request, id):
         factura_achizitie = FacturaAchizitie.objects.get(pk=id)
         factura_achizitie.delete()
     return HttpResponseRedirect(reverse('index_facturi_achizitie'))
+
+
+# Clasa Produs
+
+
+def index_produse(request):
+    return render(request, 'Gestiune/produse/index.html', {'produse': Produs.objects.all()})
+
+
+def vezi_produse(request, id):
+    return HttpResponseRedirect(reverse('index_produse'))
+
+
+def adauga_produse(request):
+    if request.method == 'POST':
+        form = ProdusForm(request.POST)
+        if form.is_valid():
+            new_nume_produs = form.cleaned_data['nume_produs']
+            new_ean = form.cleaned_data['ean']
+            new_serial_number = form.cleaned_data['serial_number']
+            new_producator = form.cleaned_data['producator']
+            new_descriere = form.cleaned_data['descriere']
+            new_cantitate_in_stoc = form.cleaned_data['cantitate_in_stoc']
+
+            new_produs = Produs(
+                nume_produs=new_nume_produs,
+                ean=new_ean,
+                serial_number=new_serial_number,
+                producator=new_producator,
+                descriere=new_descriere,
+                cantitate_in_stoc=new_cantitate_in_stoc,
+            )
+            new_produs.save()
+            return render(request, 'Gestiune/produse/adauga.html', {
+                'form': ProdusForm(),
+                'success': True
+            })
+    else:
+        form = ProdusForm()
+    return render(request, 'Gestiune/produse/adauga.html', {
+        'form': ProdusForm()
+    })
+
+
+def editeaza_produse(request, id):
+    if request.method == 'POST':
+        produs = Produs.objects.get(pk=id)
+        form = ProdusForm(request.POST, instance=produs)
+        if form.is_valid():
+            form.save()
+            return render(request, 'Gestiune/produse/editeaza.html', {
+                'form': form,
+                'success': True
+            })
+    else:
+        produs = Produs.objects.get(pk=id)
+        form = ProdusForm(instance=produs)
+    return render(request, 'Gestiune/produse/editeaza.html', {
+        'form': form
+    })
+
+
+def sterge_produse(request, id):
+    if request.method == 'POST':
+        produs = Produs.objects.get(pk=id)
+        produs.delete()
+    return HttpResponseRedirect(reverse('index_produse'))
+
+
+# Clasa ReceptieMarfa
+
+
+def index_receptie_marfuri(request):
+    return render(request, 'Gestiune/receptie_marfuri/index.html', {'receptie_marfuri': ReceptieMarfa.objects.all()})
+
+
+def vezi_receptie_marfuri(request, id):
+    return HttpResponseRedirect(reverse('index_receptie_marfuri'))
+
+
+def adauga_receptie_marfuri(request):
+    if request.method == 'POST':
+        form = ReceptieMarfaForm(request.POST)
+        if form.is_valid():
+            new_furnizor = form.cleaned_data['furnizor']
+            new_receptionat_de = form.cleaned_data['receptionat_de']
+
+            new_receptie = ReceptieMarfa(
+                furnizor=new_furnizor,
+                receptionat_de=new_receptionat_de,
+            )
+            new_receptie.save()
+            return render(request, 'Gestiune/receptie_marfuri/adauga.html', {
+                'form': ReceptieMarfaForm(),
+                'success': True
+            })
+    else:
+        form = ReceptieMarfaForm()
+    return render(request, 'Gestiune/receptie_marfuri/adauga.html', {
+        'form': ReceptieMarfaForm()
+    })
+
+
+def editeaza_receptie_marfuri(request, id):
+    if request.method == 'POST':
+        receptie = ReceptieMarfa.objects.get(pk=id)
+        form = ReceptieMarfaForm(request.POST, instance=receptie)
+        if form.is_valid():
+            form.save()
+            return render(request, 'Gestiune/receptie_marfuri/editeaza.html', {
+                'form': form,
+                'success': True
+            })
+    else:
+        receptie = ReceptieMarfa.objects.get(pk=id)
+        form = ReceptieMarfaForm(instance=receptie)
+    return render(request, 'Gestiune/receptie_marfuri/editeaza.html', {
+        'form': form
+    })
+
+
+def sterge_receptie_marfuri(request, id):
+    if request.method == 'POST':
+        receptie = ReceptieMarfa.objects.get(pk=id)
+        receptie.delete()
+    return HttpResponseRedirect(reverse('index_receptie_marfuri'))
+
+
+# Clasa ProduseReceptionate
+
+
+def index_produse_receptionate(request):
+    return render(request, 'Gestiune/produse_receptionate/index.html', {'produse_receptionate': ProduseReceptionate.objects.all()})
+
+
+def vezi_produse_receptionate(request, id):
+    return HttpResponseRedirect(reverse('index_produse_receptionate'))
+
+
+def adauga_produse_receptionate(request):
+    if request.method == 'POST':
+        form = ProduseReceptionateForm(request.POST)
+        if form.is_valid():
+            new_receptie_marfa = form.cleaned_data['receptie_marfa']
+            new_produs = form.cleaned_data['produs']
+            new_cantitate = form.cleaned_data['cantitate']
+
+            new_receptie_mf = ProduseReceptionate(
+                receptie_marfa=new_receptie_marfa,
+                produs=new_produs,
+                cantitate=new_cantitate,
+            )
+            new_receptie_mf.save()
+            return render(request, 'Gestiune/produse_receptionate/adauga.html', {
+                'form': ProduseReceptionateForm(),
+                'success': True
+            })
+    else:
+        form = ProduseReceptionateForm()
+    return render(request, 'Gestiune/produse_receptionate/adauga.html', {
+        'form': ProduseReceptionateForm()
+    })
+
+
+def editeaza_produse_receptionate(request, id):
+    if request.method == 'POST':
+        receptie_mf = ProduseReceptionate.objects.get(pk=id)
+        form = ProduseReceptionateForm(request.POST, instance=receptie_mf)
+        if form.is_valid():
+            form.save()
+            return render(request, 'Gestiune/produse_receptionate/editeaza.html', {
+                'form': form,
+                'success': True
+            })
+    else:
+        receptie_mf = ProduseReceptionate.objects.get(pk=id)
+        form = ProduseReceptionateForm(instance=receptie_mf)
+    return render(request, 'Gestiune/produse_receptionate/editeaza.html', {
+        'form': form
+    })
+
+
+def sterge_produse_receptionate(request, id):
+    if request.method == 'POST':
+        receptie_mf = ProduseReceptionate.objects.get(pk=id)
+        receptie_mf.delete()
+    return HttpResponseRedirect(reverse('index_produse_receptionate'))
 
 
 # REST API

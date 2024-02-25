@@ -74,6 +74,49 @@ urlpatterns = [
          views.sterge_factura_achizitie, name='sterge_factura_achizitie'),
 
 
+    # clasa Produs
+
+    path('produse', views.index_produse,
+         name='index_produse'),
+    path('produse/<int:id>',
+         views.vezi_produse, name='vezi_produse'),
+    path('produse/adauga/', views.adauga_produse,
+         name='adauga_produse'),
+    path('produse/editeaza/<int:id>',
+         views.editeaza_produse, name='editeaza_produse'),
+    path('produse/sterge/<int:id>',
+         views.sterge_produse, name='sterge_produse'),
+
+
+    # clasa ReceptieMarfa
+
+    path('receptie_marfuri', views.index_receptie_marfuri,
+         name='index_receptie_marfuri'),
+    path('receptie_marfuri/<int:id>',
+         views.vezi_receptie_marfuri, name='vezi_receptie_marfuri'),
+    path('receptie_marfuri/adauga/', views.adauga_receptie_marfuri,
+         name='adauga_receptie_marfuri'),
+    path('receptie_marfuri/editeaza/<int:id>',
+         views.editeaza_receptie_marfuri, name='editeaza_receptie_marfuri'),
+    path('receptie_marfuri/sterge/<int:id>',
+         views.sterge_receptie_marfuri, name='sterge_receptie_marfuri'),
+
+
+
+    # clasa ProduseReceptionate
+
+    path('produse_receptionate', views.index_produse_receptionate,
+         name='index_produse_receptionate'),
+    path('produse_receptionate/<int:id>',
+         views.vezi_produse_receptionate, name='vezi_produse_receptionate'),
+    path('produse_receptionate/adauga/', views.adauga_produse_receptionate,
+         name='adauga_produse_receptionate'),
+    path('produse_receptionate/editeaza/<int:id>',
+         views.editeaza_produse_receptionate, name='editeaza_produse_receptionate'),
+    path('produse_receptionate/sterge/<int:id>',
+         views.sterge_produse_receptionate, name='sterge_produse_receptionate'),
+
+
     # REST API
 
     path('drf/furnizori/', FurnizorListCreateAPIView.as_view(), name='furnizor'),

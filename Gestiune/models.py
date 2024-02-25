@@ -76,9 +76,7 @@ class Produs(models.Model):
         verbose_name_plural = 'Produse'
 
     nume_produs = models.CharField(max_length=55)
-
     ean = models.CharField(max_length=13)
-
     serial_number = models.CharField(max_length=15, default=None, null=True)
     producator = models.CharField(max_length=50)
     descriere = models.CharField(max_length=255)
@@ -109,8 +107,7 @@ class ProduseReceptionate(models.Model):
 
 @receiver(post_save, sender=ProduseReceptionate)
 def update_cantitate_in_stoc(sender, instance, created, **kwargs):
-    if created:  # Check if a new instance of ProduseReceptionate is created
-        produs = instance.produs  # Get the associated Produs instance
-        # Update 'cantitate_in_stoc' by adding the value of 'cantitate' from ProduseReceptionate
+    if created:
+        produs = instance.produs
         produs.cantitate_in_stoc += instance.cantitate
-        produs.save()  # Save the Produs instance with the updated 'cantitate_in_stoc'
+        produs.save()

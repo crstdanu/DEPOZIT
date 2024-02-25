@@ -1,0 +1,29 @@
+{% extends "Gestiune/base.html" %}
+
+{% block body %}
+<h3 class="text-center m-4">Actualizați recepția de marfă</h3>
+{% if success %}
+<div class="alert alert-success" role="alert">
+    Recepția de marfă a fost actualizată cu succes.
+    <a href="{% url 'index_receptie_marfa' %}" class="alert-link">Mergi la pagina principală.</a>
+</div>
+{% else %}
+<div class="row justify-content-center">
+    <div class="col-6">
+        <div class="card bg-light mb-3">
+            <div class="card-header">
+                <i class="fa-solid fa-pen-to-square fa-lg"></i> Actualizați recepția de marfă
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Actualizează</button>
+                    <a href="{% url 'index_receptie_marfuri' %}" class="btn btn-secondary">Anulează</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

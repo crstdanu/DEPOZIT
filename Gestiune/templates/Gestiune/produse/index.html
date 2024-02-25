@@ -1,0 +1,132 @@
+{% extends "Gestiune/base.html" %}
+
+{% block body %}
+<h3 class="m-4">Toate produsele</h3>
+<div class="row">
+    <div class="col-12">
+        {% if produse %}
+        <div class="card bg-light ms-4 me-4 mb-4">
+            <div class="card-header">
+                <a class="nav-link" href="{% url 'adauga_produse' %}">
+                    <i class="fa-solid fa-plus fa-lg"></i> Adaugă produs
+                </a>
+
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nume produs</th>
+                                <th scope="col">EAN</th>
+                                <th scope="col">Serial</th>
+                                <th scope="col">Producător</th>
+                                <th scope="col">Descriere</th>
+                                <th scope="col">Creat la</th>
+                                <th scope="col">Cantitate în stoc</th>
+                                <th scope="col">Acțiuni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for produs in produse %}
+                            <tr>
+                                <td>{{ produs.nume_produs }}</td>
+                                <td>{{ produs.ean }}</td>
+                                <td>{{ produs.serial_number }}</td>
+                                <td>{{ produs.producator }}</td>
+                                <td>{{ produs.descriere }}</td>
+                                <td>{{ produs.creat_la }}</td>
+                                <td>{{ produs.cantitate_in_stoc }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success me-1"
+                                        href="{% url 'vezi_produse' produs.id %}" data-bs-toggle="modal"
+                                        data-bs-target="#myModal{{produs.id}}">
+                                        <i class="fa-solid fa-circle-info fa-lg"></i>
+                                    </button>
+
+                                    <!-- Modal - View Produse -->
+                                    <div class="modal" id="myModal{{produs.id}}" tabindex="-1"
+                                        aria-labelledby="myModalLabel1" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">
+                                                        Nume produs: {{ produs.nume_produs }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-unstyled">
+                                                        <li>EAN: <strong>{{ produs.ean }}</strong></li>
+                                                        <li>Serial: <strong>{{ produs.serial_number }}</strong></li>
+                                                        <li>Producător: <strong>{{ produs.producator }}</strong></li>
+                                                        <li>Descriere: <strong>{{ produs.descriere }}</strong></li>
+                                                        <li>Creat la: <strong>{{ produs.creat_la }}</strong></li>
+                                                        <li>Cantitatea în stoc: <strong>{{ produs.cantitatea_in_stoc
+                                                                }}</strong></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary"
+                                                        data-bs-dismiss="modal">Închide</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a class="btn btn-warning me-1" href="{% url 'editeaza_produse' produs.id %}">
+                                        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                    </a>
+
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#delete{{produs.id}}">
+                                        <i class="fa-solid fa-trash-can fa-lg"></i>
+                                    </button>
+
+                                    <!-- Modal - Delete ContactFurnizor -->
+                                    <div class="modal" id="delete{{produs.id}}" tabindex="-1"
+                                        aria-labelledby="myModalLabel2" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">
+                                                        Nume produs: {{ produs.nume_produs }}
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Ești sigur că vrei să ștergi produsul?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <form action="{% url 'sterge_produse' produs.id %}" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="submit" class="btn btn-primary" value="Delete">
+                                                    </form>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Anulare</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                </p>
+            </div>
+        </div>
+        {% else %}
+        <h5 class="alert alert-primary ms-4 me-4">Nu sunt înregistrări</h5>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
