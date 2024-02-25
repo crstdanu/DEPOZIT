@@ -1,13 +1,15 @@
 from django import forms
-from .models import Furnizor, Contact, ContactFurnizor
+from .models import Furnizor, Contact, ContactFurnizor, FacturaAchizitie
 
+
+# Formular Furnizor
 
 class FurnizorForm(forms.ModelForm):
     class Meta:
         model = Furnizor
         fields = ['cui', 'nume', 'adresa', 'numar_reg_com', 'telefon']
         labels = {
-            'cui': 'CUI',
+            'cui': 'C.U.I.',
             'nume': 'Nume',
             'adresa': 'Adresa',
             'numar_reg_com': 'Nr. Reg. Com.',
@@ -21,6 +23,8 @@ class FurnizorForm(forms.ModelForm):
             'telefon': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
+
+# Formular Contact
 
 class ContactForm(forms.ModelForm):
     class Meta:
@@ -38,19 +42,7 @@ class ContactForm(forms.ModelForm):
         }
 
 
-# class ContactFurnizorForm(forms.ModelForm):
-#     class Meta:
-#         model = ContactFurnizor
-#         fields = ['furnizor', 'persoana_de_contact']
-#         labels = {
-#             'furnizor': 'Furnizor',
-#             'persoana_de_contact': 'Persoana de contact'
-#         }
-#         widgets = {
-#             'furnizor': forms.TextInput(attrs={'class': 'form-control'}),
-#             'persoana_de_contact': forms.TextInput(attrs={'class': 'form-control'})
-#         }
-
+# Formular ContactFurnizor
 
 class ContactFurnizorForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -62,9 +54,31 @@ class ContactFurnizorForm(forms.ModelForm):
         fields = ['furnizor', 'persoana_de_contact']
         labels = {
             'furnizor': 'Furnizor',
-            'persoana_de_contact': 'Persoana de contact'
+            'persoana_de_contact': 'Persoană de contact'
         }
         widgets = {
             'furnizor': forms.Select(attrs={'class': 'form-control'}),
             'persoana_de_contact': forms.TextInput(attrs={'class': 'form-control'})
+        }
+
+
+# Formular FacturaAchizitie
+
+class FacturaAchizitieForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(FacturaAchizitieForm, self).__init__(*args, **kwargs)
+        self.fields['furnizor'].queryset = Furnizor.objects.all()
+
+    class Meta:
+        model = FacturaAchizitie
+        fields = ['furnizor', 'nr_factura', 'valoare_factura',]
+        labels = {
+            'furnizor': 'Furnizor',
+            'nr_factura': 'Nr. factură',
+            'valoare_factura': 'Valoare factură',
+        }
+        widgets = {
+            'furnizor': forms.Select(attrs={'class': 'form-control'}),
+            'nr_factura': forms.TextInput(attrs={'class': 'form-control'}),
+            'valoare_factura': forms.TextInput(attrs={'class': 'form-control'}),
         }

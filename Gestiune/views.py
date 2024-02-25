@@ -16,7 +16,7 @@ from .models import (
     ProduseReceptionate,
 )
 
-from .forms import FurnizorForm, ContactForm, ContactFurnizorForm
+from .forms import FurnizorForm, ContactForm, ContactFurnizorForm, FacturaAchizitieForm
 
 from .serializers import (
     FurnizorSerializer,
@@ -160,10 +160,6 @@ def sterge_contact(request, id):
     return HttpResponseRedirect(reverse('index_contacte'))
 
 
-
-
-
-
 # Clasa ContactFurnizori
 
 
@@ -223,6 +219,68 @@ def sterge_contact_furnizor(request, id):
     return HttpResponseRedirect(reverse('index_contacte_furnizori'))
 
 
+# Clasa FacturaAchizitie
+
+
+def index_facturi_achizitie(request):
+    return render(request, 'Gestiune/facturi_achizitie/index.html', {'facturi_achizitie': FacturaAchizitie.objects.all()})
+
+
+def vezi_factura_achizitie(request, id):
+    return HttpResponseRedirect(reverse('index_facturi_achizitie'))
+
+
+def adauga_factura_achizitie(request):
+    if request.method == 'POST':
+        form = FacturaAchizitieForm(request.POST)
+        if form.is_valid():
+            new_furnizor = form.cleaned_data['furnizor']
+            new_nr_factura = form.cleaned_data['nr_factura']
+            new_valoare_factura = form.cleaned_data['valoare_factura']
+            new_data_factura = form.cleaned_data['data_factura']
+
+            new_factura_achizitie = FacturaAchizitie(
+                furnizor=new_furnizor,
+                nr_factura=new_nr_factura,
+                valoare_factura=new_valoare_factura,
+                data_factura=new_data_factura,
+            )
+            new_factura_achizitie.save()
+            return render(request, 'Gestiune/facturi_acizitie/adauga.html', {
+                'form': FacturaAchizitieForm(),
+                'success': True
+            })
+    else:
+        form = FacturaAchizitieForm()
+    return render(request, 'Gestiune/facturi_achizitie/adauga.html', {
+        'form': FacturaAchizitieForm()
+    })
+
+
+def editeaza_factura_achizitie(request, id):
+    if request.method == 'POST':
+        factura_achizitie = FacturaAchizitie.objects.get(pk=id)
+        form = FacturaAchizitieForm(request.POST, instance=factura_achizitie)
+        if form.is_valid():
+            form.save()
+            return render(request, 'Gestiune/facturi_achizitie/editeaza.html', {
+                'form': form,
+                'success': True
+            })
+    else:
+        factura_achizitie = FacturaAchizitie.objects.get(pk=id)
+        form = FacturaAchizitieForm(instance=factura_achizitie)
+    return render(request, 'Gestiune/facturi_achizitie/editeaza.html', {
+        'form': form
+    })
+
+
+def sterge_factura_achizitie(request, id):
+    if request.method == 'POST':
+        factura_achizitie = FacturaAchizitie.objects.get(pk=id)
+        factura_achizitie.delete()
+    return HttpResponseRedirect(reverse('index_facturi_achizitie'))
+
 
 # REST API
 
@@ -232,7 +290,6 @@ class FurnizorListCreateAPIView(ListCreateAPIView):
     # filter_backends = [filters.OrderingFilter]
     # filter_backends = [filters.SearchFilter]
     filterset_fields = ['cui', 'nume', 'adresa', 'numar_reg_com', 'telefon']
-
 
 
 class FurnizorRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):

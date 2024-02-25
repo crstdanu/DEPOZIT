@@ -60,6 +60,20 @@ urlpatterns = [
          views.sterge_contact_furnizor, name='sterge_contact_furnizor'),
 
 
+    # clasa FacturiAchizitie
+
+    path('facturi_achizitie', views.index_facturi_achizitie,
+         name='index_facturi_achizitie'),
+    path('facturi_achizitie/<int:id>',
+         views.vezi_contact_furnizor, name='vezi_factura_achizitie'),
+    path('facturi_achizitie/adauga/', views.adauga_factura_achizitie,
+         name='adauga_factura_achizitie'),
+    path('facturi_achizitie/editeaza/<int:id>',
+         views.editeaza_factura_achizitie, name='editeaza_factura_achizitie'),
+    path('facturi_achizitie/sterge/<int:id>',
+         views.sterge_factura_achizitie, name='sterge_factura_achizitie'),
+
+
     # REST API
 
     path('drf/furnizori/', FurnizorListCreateAPIView.as_view(), name='furnizor'),
