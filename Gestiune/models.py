@@ -91,7 +91,7 @@ class ReceptieMarfa(models.Model):
     class Meta:
         verbose_name_plural = 'Receptie Marfuri'
 
-    furnizor = models.ForeignKey(ContactFurnizor, on_delete=models.CASCADE)
+    furnizor = models.ForeignKey(Furnizor, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
     receptionat_de = models.CharField(max_length=50)
 

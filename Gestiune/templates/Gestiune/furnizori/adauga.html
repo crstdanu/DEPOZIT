@@ -15,7 +15,7 @@
                 <i class="fa-solid fa-address-card fa-lg"></i> Înregistrare furnizor
             </div>
             <div class="card-body">
-                <form action="{% url 'adauga_furnizori' %}" method="POST">
+                <form action="{% url 'adauga_furnizor' %}" method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="submit" class="btn btn-primary">Adaugă</button>

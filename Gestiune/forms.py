@@ -118,7 +118,7 @@ class ReceptieMarfaForm(forms.ModelForm):
 
     class Meta:
         model = ReceptieMarfa
-        fields = ['furnizor', 'receptionat_de', ]
+        fields = ['furnizor', 'receptionat_de']
         labels = {
             'furnizor': 'Furnizor',
             'receptionat_de': 'Recepționat de',
