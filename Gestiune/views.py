@@ -237,16 +237,14 @@ def adauga_factura_achizitie(request):
             new_furnizor = form.cleaned_data['furnizor']
             new_nr_factura = form.cleaned_data['nr_factura']
             new_valoare_factura = form.cleaned_data['valoare_factura']
-            new_data_factura = form.cleaned_data['data_factura']
 
             new_factura_achizitie = FacturaAchizitie(
                 furnizor=new_furnizor,
                 nr_factura=new_nr_factura,
                 valoare_factura=new_valoare_factura,
-                data_factura=new_data_factura,
             )
             new_factura_achizitie.save()
-            return render(request, 'Gestiune/facturi_acizitie/adauga.html', {
+            return render(request, 'Gestiune/facturi_achizitie/adauga.html', {
                 'form': FacturaAchizitieForm(),
                 'success': True
             })
